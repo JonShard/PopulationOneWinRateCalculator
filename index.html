@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  .fields {
+    font-size: 25px;
+    background-color: #ffd9cc
+  }
+  .stats {
+    display: none;
+    font-size: 25px;
+    background-color: #e6f3ff
+
+  }
+  .middlePanel {
+    position: absolute;
+    left: 30%;
+    transform: translateX(-30%);
+  }
+  </style>
+
+
+  <script>
+    function init() {
+      document.getElementById("txt_played").value = getCookieValue("played")
+      document.getElementById("txt_wins").value = getCookieValue("wins")
+      document.getElementById("rng_target_win_rate").value = (getCookieValue("targetWinRate") * 100)
+      if (getCookieValue("returningUser") == "true") {
+          caclulateStats()
+      }
+      else {
+          alert("We use cookies to store your games played, games won and target win rate for your convenience. By using this service you agree to cookies.")
+      }
+    }
+
+    function getCookieValue(a) {
+        var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+        return b ? b.pop() : '';
+    }
+
+    function setDisplayMode(className, displayState){
+      var elements = document.getElementsByClassName(className)
+
+      for (var i = 0; i < elements.length; i++){
+          elements[i].style.display = displayState;
+        }
+    }
+
+    function caclulateStats() {
+      var gamesPlayed = document.getElementById("txt_played").value
+      var gamesWon = document.getElementById("txt_wins").value
+      var targetWinRate = document.getElementById("rng_target_win_rate").value / 100
+      document.cookie = "played=" + gamesPlayed + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+      document.cookie = "wins=" + gamesWon + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+      document.cookie = "targetWinRate=" + targetWinRate + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+      document.cookie = "returningUser=" + true + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+
+      var hypPlayed = gamesPlayed
+      var hypWon = gamesWon
+      while((hypWon / hypPlayed) < targetWinRate) {
+        hypWon++
+        hypPlayed++
+      }
+
+      document.getElementById("lbl_games_played").innerHTML = "Games played: " + gamesPlayed
+      document.getElementById("lbl_games_won").innerHTML = "Games won: " + gamesWon
+      document.getElementById("lbl_games_lost").innerHTML = "Games lost: " + (gamesPlayed - gamesWon)
+      document.getElementById("lbl_win_rate").innerHTML = "Win rate: " + ((gamesWon / gamesPlayed) * 100).toFixed(3) + "%"
+      document.getElementById("lbl_games_to_target").innerHTML = "Consecutive games to reach goal: " + (hypPlayed - gamesPlayed)
+      setDisplayMode("stats", "block")
+    }
+
+    function updateTargetWinRateRange() {
+      document.getElementById("lbl_rng_target_win_rate").innerHTML = document.getElementById("rng_target_win_rate").value
+      caclulateStats()
+    }
+
+    function addWin(){
+      document.getElementById("txt_played").value++
+      document.getElementById("txt_wins").value++
+      caclulateStats()
+    }
+
+    function addLoss(){
+      document.getElementById("txt_played").value++
+      caclulateStats()
+    }
+  </script>
+
+  <title>Population One Win Rate Calculator</title>
+</head>
+
+
+<body onload="init();" background="background.jpeg">
+  <div class="middlePanel">
+    <div class="fields" style=".fields">
+      <h1>Population One Win Rate calculator</h1>
+
+      <h3>Input your games played, and wins, we'll then give you some stats.</h3>
+      <input id="txt_played" type="number" name="txt_played" placeholder="games played">
+      <br/>
+      <input id="txt_wins" type="number" name="txt_wins" placeholder="games won">
+      <br/>
+      <p>Target win rate:
+      <input type="range" id="rng_target_win_rate" name="rng_target_win_rate" min="0" max="100" value="69" step="1" oninput="updateTargetWinRateRange()">
+      <label id="lbl_rng_target_win_rate" for="rng_target_win_rate">69</label>
+      <br/>
+      <button type="button" name="btn_calculate" formtarget="_self" onclick="caclulateStats()">Calculate</button>
+    </div>
+    <br/>
+    <div class="stats" style=".stats">
+      <h3>Stats:</h3>
+      <p id="lbl_games_played"> Games played: </p>
+      <p id="lbl_games_won"> Games won: </p>
+      <p id="lbl_games_lost"> Games lost: </p>
+      <p id="lbl_win_rate"> Win rate: </p>
+      <h3 id="lbl_games_to_target"> Consecutive games to reach goal: </h3>
+
+      <button type="button" style="font-size: 100px; background-color: #b3ff99" name="btn_addWin" formtarget="_self" onclick="addWin()">Add Win</button>
+      <button type="button" style="font-size: 100px; background-color: #ff5c33" name="btn_addLoss" formtarget="_self" onclick="addLoss()">Add Loss</button>
+    </div>
+  </div>
+</body>
+</html>
