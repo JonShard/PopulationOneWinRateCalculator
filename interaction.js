@@ -6,9 +6,11 @@ function init() {
         caclulateStats()
     }
     else {
+        document.cookie = "consecutiveWins=0; expires=Fri, 31 Dec 9999 23:59:59 GMT";
         alert("We use cookies to store your games played, games won and target win rate for your convenience. By using this service you agree to cookies.")
   }
 }
+
 function getCookieValue(a) {
     var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
     return b ? b.pop() : '';
@@ -29,10 +31,15 @@ function updateTargetWinRateRange() {
 function addWin(){
   document.getElementById("txt_played").value++
   document.getElementById("txt_wins").value++
+  var consWins = getCookieValue("consecutiveWins")
+  document.cookie = "consecutiveWins=" + (+consWins + 1) + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+  //registerMatchResult("w")
   caclulateStats()
 }
 
 function addLoss(){
   document.getElementById("txt_played").value++
+  document.cookie = "consecutiveWins=0; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+  //registerMatchResult("l")
   caclulateStats()
 }
