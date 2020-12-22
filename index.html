@@ -4,18 +4,32 @@
   <style>
   .fields {
     font-size: 25px;
-    background-color: #ffd9cc
+    color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
   }
   .stats {
     display: none;
     font-size: 25px;
-    background-color: #e6f3ff
+    color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif
 
   }
-  .middlePanel {
+  .middle {
     position: absolute;
     left: 30%;
+    padding-left: 25px;
+    padding-right: 25px;
     transform: translateX(-30%);
+    background-color: rgba(50, 50, 50, 0.9)
+  }
+  .bg {
+    background-image: url("background.jpeg");
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed
   }
   </style>
 
@@ -96,19 +110,20 @@
 </head>
 
 
-<body onload="init();" background="background.jpeg">
+<body onload="init();" class="bg">
 
-  <div class="middlePanel">
+  <div class="middle">
+    <img src="title.png" alt="title" style="display:block; margin-left: auto; margin-right: auto;">
     <div class="fields" style=".fields">
-      <h1>Population One Win Rate calculator</h1>
-
       <h3>Input your games played, and wins, we'll then give you some stats.</h3>
+      <p>Games played:
       <input id="txt_played" type="number" name="txt_played" placeholder="games played">
       <br/>
+      <p>Games won:
       <input id="txt_wins" type="number" name="txt_wins" placeholder="games won">
       <br/>
       <p>Target win rate:
-      <input type="range" id="rng_target_win_rate" name="rng_target_win_rate" min="0" max="100" value="69" step="1" oninput="updateTargetWinRateRange()">
+      <input type="range" id="rng_target_win_rate" style="font-size: 50px; max-height: 15px" name="rng_target_win_rate" min="0" max="99" value="69" step="1" oninput="updateTargetWinRateRange()">
       <label id="lbl_rng_target_win_rate" for="rng_target_win_rate">69</label>
       <br/>
       <button type="button" name="btn_calculate" formtarget="_self" onclick="caclulateStats()">Calculate</button>
@@ -124,8 +139,8 @@
       <p id="lbl_wins_at_stake" contextmenu="How many wins you loose in term of progress towards your goal for loosing a match"> Wins at stake: </p>
       <h3 id="lbl_games_to_target" contextmenu="How many games you need to win in a row to reach the goal"> Consecutive games to reach goal: </h3>
 
-      <button type="button" style="font-size: 100px; background-color: #b3ff99" name="btn_addWin" formtarget="_self" onclick="addWin()">Add Win</button>
-      <button type="button" style="font-size: 100px; background-color: #ff5c33" name="btn_addLoss" formtarget="_self" onclick="addLoss()">Add Loss</button>
+      <input type="image" src="addwin.jpeg" height="auto" width="46%" name="btn_addWin" onclick="addWin()"> </input>
+      <input type="image" src="addloss.jpeg" height="auto" width="49%" name="btn_addLoss" onclick="addLoss()"> </input>
     </div>
   </div>
 </body>
