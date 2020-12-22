@@ -46,6 +46,16 @@
         }
     }
 
+    function getWinsToReachTarget(gamesPlayed, gamesWon, targetWinRate) {
+      var hypPlayed = gamesPlayed
+      var hypWon = gamesWon
+      while((hypWon / hypPlayed) < targetWinRate) {
+        hypWon++
+        hypPlayed++
+      }
+      return (hypPlayed - gamesPlayed)
+    }
+
     function caclulateStats() {
       var gamesPlayed = document.getElementById("txt_played").value
       var gamesWon = document.getElementById("txt_wins").value
@@ -55,18 +65,13 @@
       document.cookie = "targetWinRate=" + targetWinRate + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
       document.cookie = "returningUser=" + true + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
 
-      var hypPlayed = gamesPlayed
-      var hypWon = gamesWon
-      while((hypWon / hypPlayed) < targetWinRate) {
-        hypWon++
-        hypPlayed++
-      }
-
       document.getElementById("lbl_games_played").innerHTML = "Games played: " + gamesPlayed
       document.getElementById("lbl_games_won").innerHTML = "Games won: " + gamesWon
       document.getElementById("lbl_games_lost").innerHTML = "Games lost: " + (gamesPlayed - gamesWon)
       document.getElementById("lbl_win_rate").innerHTML = "Win rate: " + ((gamesWon / gamesPlayed) * 100).toFixed(3) + "%"
-      document.getElementById("lbl_games_to_target").innerHTML = "Consecutive games to reach goal: " + (hypPlayed - gamesPlayed)
+      document.getElementById("lbl_rounded_win_rate").innerHTML = "Population One rounded win rate: " + ((gamesWon / gamesPlayed).toFixed(2) * 100) + "%"
+      document.getElementById("lbl_wins_at_stake").innerHTML = "Wins at stake: " + (getWinsToReachTarget(+gamesPlayed + 1, gamesWon, targetWinRate) - getWinsToReachTarget(gamesPlayed, gamesWon, targetWinRate))
+      document.getElementById("lbl_games_to_target").innerHTML = "Consecutive games to reach goal: " + (getWinsToReachTarget(gamesPlayed, gamesWon, targetWinRate))
       setDisplayMode("stats", "block")
     }
 
@@ -92,6 +97,7 @@
 
 
 <body onload="init();" background="background.jpeg">
+
   <div class="middlePanel">
     <div class="fields" style=".fields">
       <h1>Population One Win Rate calculator</h1>
@@ -113,8 +119,10 @@
       <p id="lbl_games_played"> Games played: </p>
       <p id="lbl_games_won"> Games won: </p>
       <p id="lbl_games_lost"> Games lost: </p>
-      <p id="lbl_win_rate"> Win rate: </p>
-      <h3 id="lbl_games_to_target"> Consecutive games to reach goal: </h3>
+      <p id="lbl_win_rate" contextmenu="The actual percentage of games won out of the ones you've played"> Accurate win rate: </p>
+      <p id="lbl_rounded_win_rate" contextmenu="Win percentage they way it is displayed in the Stat menu in Pop one"> Population One rounded win rate: </p>
+      <p id="lbl_wins_at_stake" contextmenu="How many wins you loose in term of progress towards your goal for loosing a match"> Wins at stake: </p>
+      <h3 id="lbl_games_to_target" contextmenu="How many games you need to win in a row to reach the goal"> Consecutive games to reach goal: </h3>
 
       <button type="button" style="font-size: 100px; background-color: #b3ff99" name="btn_addWin" formtarget="_self" onclick="addWin()">Add Win</button>
       <button type="button" style="font-size: 100px; background-color: #ff5c33" name="btn_addLoss" formtarget="_self" onclick="addLoss()">Add Loss</button>
