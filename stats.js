@@ -2,7 +2,7 @@
 function getWinsToReachTarget(gamesPlayed, gamesWon, targetWinRate) {
     var hypPlayed = gamesPlayed
     var hypWon = gamesWon
-    while((hypWon / hypPlayed) < targetWinRate) {
+    while((hypWon / hypPlayed) < (+targetWinRate + 0.05)) {
         hypWon++
         hypPlayed++
     }
@@ -27,7 +27,7 @@ function updateStats() {
     document.getElementById("lbl_rounded_win_rate").innerHTML = "Population One rounded win rate: " + ((gamesWon / gamesPlayed).toFixed(2) * 100) + "%"
     document.getElementById("lbl_games_to_target").innerHTML = "Consecutive games to reach goal: " + (getWinsToReachTarget(gamesPlayed, gamesWon, targetWinRate))
     setDisplayMode("stats", "block")
-    tableCreate()
+    //tableCreate()
 }
 
 // https://stackoverflow.com/questions/14643617/create-table-using-javascript

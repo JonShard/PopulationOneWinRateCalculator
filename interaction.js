@@ -1,7 +1,9 @@
 function init() {
+    
     document.getElementById("txt_played").value = getCookie("played")
     document.getElementById("txt_wins").value = getCookie("wins")
     document.getElementById("rng_target_win_rate").value = (getCookie("targetWinRate") * 100)
+    document.getElementById("lbl_rng_target_win_rate").innerHTML = (getCookie("targetWinRate") * 100)
     if (getCookie("returningUser") == "true") {
         updateStats()
     }
