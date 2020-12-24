@@ -22,7 +22,7 @@
       <input type="range" id="rng_target_win_rate" style="font-size: 50px; max-height: 15px" name="rng_target_win_rate" min="0" max="99" value="69" step="1" oninput="updateTargetWinRateRange()">
       <label id="lbl_rng_target_win_rate" for="rng_target_win_rate">69</label>
       <br/>
-      <button type="button" name="btn_calculate" formtarget="_self" onclick="caclulateStats()">Calculate</button>
+      <button type="button" name="btn_calculate" formtarget="_self" onclick="updateStats()">Calculate</button>
     </div>
     <br/>
     <div class="stats">
@@ -43,5 +43,8 @@
       </div>
     </div>
   </div>
+  <script>
+    init()
+  </script>
 </body>
 </html>
