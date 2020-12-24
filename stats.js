@@ -2,7 +2,8 @@
 function getWinsToReachTarget(gamesPlayed, gamesWon, targetWinRate) {
     var hypPlayed = gamesPlayed
     var hypWon = gamesWon
-    while((hypWon / hypPlayed) < (+targetWinRate + 0.05)) {
+    while((hypWon / hypPlayed).toFixed(2) < (+targetWinRate)) {
+        console.log("Hyp winrate: " + (hypWon / hypPlayed).toFixed(2) + "\tTarget: " + targetWinRate)
         hypWon++
         hypPlayed++
     }
