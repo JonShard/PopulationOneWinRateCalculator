@@ -38,7 +38,7 @@ function updateStats() {
     document.getElementById("lbl_wins_at_stake").innerHTML = "Wins at stake: " + (getWinsToReachTarget(+gamesPlayed + 1, gamesWon, targetWinRate) - getWinsToReachTarget(gamesPlayed, gamesWon, targetWinRate))
     document.getElementById("lbl_win_rate").innerHTML = "Win rate: " + winRate + "%"
     document.getElementById("lbl_rounded_win_rate").innerHTML = "Population One rounded win rate: " + roundedWinRate + "%"
-    document.getElementById("lbl_losses_while_til_drop").innerHTML = "Consecutive losses to drop to a percent: " + getWinsToDropPercent(gamesPlayed, gamesWon, roundedWinRate)
+    document.getElementById("lbl_losses_while_til_drop").innerHTML = "Consecutive losses to drop a percent: " + getWinsToDropPercent(gamesPlayed, gamesWon, roundedWinRate)
     document.getElementById("lbl_games_to_target").innerHTML = "Consecutive wins to reach goal: " + (getWinsToReachTarget(gamesPlayed, gamesWon, targetWinRate))
     setDisplayMode("stats", "block")
     //tableCreate()
