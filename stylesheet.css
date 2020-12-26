@@ -28,3 +28,14 @@
     background-size: cover;
     background-attachment: fixed;
 }
+input[type="number"] {
+    font-size: 23px;
+    width: 100px;
+}
+input[type="range"] {
+    width:600px;
+}
+input[type="button"] {
+width: 400px;
+height: auto;
+}
